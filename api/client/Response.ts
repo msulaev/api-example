@@ -32,4 +32,10 @@ export class Response {
             expect(this.body).toContain(expectedSubstring);
         });
     }
+
+    public async shouldHave({ property, witValue }: { property: string, witValue: string }) {
+        await test.step('Response body should contain property with value', async () => {
+            expect(this.body[property]).toEqual(witValue);
+        });
+    }
 }
