@@ -7,10 +7,10 @@ export class PlaywrightApiClient implements ApiClient {
     constructor(private request: APIRequestContext) {
     }
 
-    public sendRequest(
+    public sendRequest<Type extends Record<string, unknown> | string>(
         method: HttpMethod,
         url: string,
-        options?: RequestOptions): Promise<Response> {
+        options?: RequestOptions): Promise<Response<Type>> {
         return test.step(
             `Request ${method} ${url}`,
             async () => {
@@ -26,9 +26,9 @@ export class PlaywrightApiClient implements ApiClient {
                     responseBody = await response.text();
                 }
 
-                return new Response({
+                return new Response<Type>({
                     statusCode: response.status(),
-                    body: responseBody,
+                    body: responseBody as Type,
                     headers: response.headers(),
                 });
             });

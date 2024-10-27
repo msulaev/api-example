@@ -5,7 +5,7 @@ export class Hello extends ApiRoute {
 
     public async get(param?: { name?: string }) {
         return test.step('Sendignt GET', async () => {
-            return this.apiClient.sendRequest('GET', this.url, { param });
+            return this.apiClient.sendRequest<{ answer: string }>('GET', this.url, { param });
         });
     }
 }

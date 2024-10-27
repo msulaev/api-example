@@ -8,7 +8,8 @@ test.describe('API tests', () => {
         const name = 'someone';
         const response = await new Api(request).hello.get({ name: name });
         await response.statusCode.shouldBe(200);
-        await response.shouldHave({ property: 'answer', witValue: 'Hello, someone' });
+        await response.shouldBe({ answer: `Hello, someone` });
+        await response.shouldHave({ property: 'answer', witValue: `Hello, someone` });
     });
 
     test('GET /get500', async ({ request }) => {
