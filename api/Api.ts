@@ -2,7 +2,7 @@ import test, { APIRequestContext } from '@playwright/test';
 import { PlaywrightApiClient } from './client/PlaywrightApiClient';
 import { Get500 } from './get500/Get500';
 import { CheckTypes } from './check-types/CheckTypes';
-import { Hello } from './Hello/Hello';
+import { Hello } from './hello/Hello';
 import { User } from './user/User';
 import { UserParams } from './user/UserParams';
 
