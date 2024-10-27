@@ -56,11 +56,12 @@ test.describe('AUTH', () => {
         userId = userIdResponse.body['user_id'];
     });
 
-    test('GET /user/:id', async () => {
+    test.only('GET /user/:id', async () => {
         const userInfoResponse = await api.user.userInfo(userId);
         await userInfoResponse.statusCode.shouldBe(200);
         const { password, ...userParamWithoutPassword } = userParam;
         await userInfoResponse.shouldBe({ ...userParamWithoutPassword, id: userId.toString() });
+        await userInfoResponse.shouldHaveValidSchema();
     });
 
     test.afterEach(async () => {
