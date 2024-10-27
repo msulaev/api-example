@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe.skip('API tests', () => {
+test.describe('API tests', () => {
   test('GET /hello', async ({ request }) => {
     const response = (await request.get('hello'));
     const body = await response.json() as { answer: string };
@@ -29,7 +29,7 @@ test.describe.skip('API tests', () => {
   });
 });
 
-test.describe.skip('AUTH', () => {
+test.describe('AUTH', () => {
   test.use({ storageState: "./state.json" });
   let csrf;
   let cookie;

@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from '../fixture/fixture';
 import { faker } from '@faker-js/faker';
 import { Api } from '../api/Api';
 import { HttpMethod } from '../api/client/ApiClient';
@@ -6,23 +6,23 @@ import { UserParams } from '../api/user/UserParams';
 
 
 test.describe('API tests', () => {
-    test('GET /hello', async ({ request }) => {
+    test('GET /hello', async ({ api }) => {
         const name = 'someone';
-        const response = await new Api(request).hello.get({ name: name });
+        const response = await api.hello.get({ name: name });
         await response.statusCode.shouldBe(200);
         await response.shouldBe({ answer: `Hello, someone` });
         await response.shouldHave({ property: 'answer', witValue: `Hello, someone` });
     });
 
-    test('GET /get500', async ({ request }) => {
-        const response = await new Api(request).get500.get();
+    test('GET /get500', async ({ api }) => {
+        const response = await api.get500.get();
         await response.statusCode.shouldBe(500);
     });
 
     const EXPECTED_METHODS = ['get', 'post', 'delete', 'patch'] as const;
     EXPECTED_METHODS.forEach((methodName) => {
-        test(`GET check method ${methodName}`, async ({ request }) => {
-            const response = await new Api(request).checkType.check({ method: methodName.toUpperCase() as unknown as HttpMethod });
+        test(`GET check method ${methodName}`, async ({ api }) => {
+            const response = await api.checkType.check({ method: methodName.toUpperCase() as unknown as HttpMethod });
             await response.statusCode.shouldBe(200);
             await response.shouldContain(methodName.toUpperCase());
         });
@@ -30,11 +30,9 @@ test.describe('API tests', () => {
 });
 
 test.describe('AUTH', () => {
-    let api: Api;
     let userId: number;
     let userParam: UserParams;
-    test.beforeEach('Create user', async ({ request }) => {
-        api = new Api(request);
+    test.beforeEach('Create user', async ({ api }) => {
         userParam = {
             username: faker.internet.username(),
             password: faker.internet.password(),
@@ -50,13 +48,13 @@ test.describe('AUTH', () => {
         await api.auth(userParam);
 
     });
-    test('GET /auth', async () => {
+    test('GET /auth', async ({ api }) => {
         const userIdResponse = await api.user.authUser();
         await userIdResponse.statusCode.shouldBe(200);
         userId = userIdResponse.body['user_id'];
     });
 
-    test.only('GET /user/:id', async () => {
+    test('GET /user/:id', async ({ api }) => {
         const userInfoResponse = await api.user.userInfo(userId);
         await userInfoResponse.statusCode.shouldBe(200);
         const { password, ...userParamWithoutPassword } = userParam;
@@ -64,7 +62,7 @@ test.describe('AUTH', () => {
         await userInfoResponse.shouldHaveValidSchema();
     });
 
-    test.afterEach(async () => {
+    test.afterEach(async ({ api }) => {
         const response = await api.user.delete(userId);
         await response.shouldBe({ success: '!' });
     });

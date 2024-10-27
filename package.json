@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "allure:generate": "npx allure generate ./allure-results --clean",
+    "allure:serve": "npx allure serve",
+    "docker-compose": "docker compose up api-tests"
   },
   "keywords": [],
   "author": "",
