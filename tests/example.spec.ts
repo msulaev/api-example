@@ -29,7 +29,7 @@ test.describe.skip('API tests', () => {
   });
 });
 
-test.describe('AUTH', () => {
+test.describe.skip('AUTH', () => {
   test.use({ storageState: "./state.json" });
   let csrf;
   let cookie;

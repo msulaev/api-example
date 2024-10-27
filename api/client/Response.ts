@@ -9,7 +9,7 @@ type ResponseProps<Type> = {
 
 export class Response<Type extends Record<string, unknown> | string> {
     public statusCode: StatusCode;
-    public body: Record<string, unknown> | string;
+    public body: Type;
     public headers: Record<string, string>;
 
     constructor({ statusCode, headers, body }: ResponseProps<Type>) {

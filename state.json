@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "auth_sid",
-      "value": "0f9e8759b8d03206c02a049cd8b63a69920362a72edb3c43ce76d9d9299a4489",
+      "value": "ef6343b1e78f320017c69637a709c518920362a72edb3c43ce76d9d9299a4489",
       "domain": "playground.learnqa.ru",
       "path": "/api/user",
       "expires": -1,
