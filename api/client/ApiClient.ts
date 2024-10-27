@@ -1,6 +1,8 @@
+import { Response } from './Response'
+
 export type HttpMethod = 'GET' | 'POST' | 'DELETE' | 'PATCH';
 
-export type RequestOpetins = {
+export type RequestOptions = {
     body?: Record<string, unknown>,
     param?: Record<string, string>
 }
@@ -9,6 +11,6 @@ export type ApiClient = {
     sendRequest(
         method: HttpMethod,
         url: string,
-        options?: RequestOpetins
+        options?: RequestOptions
     ): Promise<Response>
 }
